@@ -48,4 +48,4 @@ Entlin Admin-Dashboard Frontend with ReactJs and ReduxJs.
 - Step 1:- Clone project from via git clone https://github.com/z2p-today/Entlin-Admin-Frontend.git
 - Step 3:- Install dependencies via npm install
 - Step 2:- Enter in Entlin-Admin-Frontend
-- Step 4:- pm2 start 'npm start:production' --name=Entlin-Admin-Frontend --time
+- Step 4:- pm2 start 'npm run start:production' --name=Entlin-Admin-Frontend --time

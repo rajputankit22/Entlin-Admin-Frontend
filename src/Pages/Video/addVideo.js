@@ -31,7 +31,8 @@ import FormLabel from "@material-ui/core/FormLabel";
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import SimpleReactValidator from "simple-react-validator";
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
-
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import ChipInput from "material-ui-chip-input";
 
 
 const ITEM_HEIGHT = 48;
@@ -116,7 +117,8 @@ class AddVideo extends React.Component {
       description: "",
       createdBy: "",
       createrDetails: "",
-      prefix: ""
+      prefix: "",
+      tags: []
     };
     this.validator = new SimpleReactValidator();
   }
@@ -127,13 +129,26 @@ class AddVideo extends React.Component {
     });
   };
 
+  handleAddChip = (chip) => {
+    this.setState({
+      tags: [...this.state.tags, chip]
+    });
+  }
+
+  handleDeleteChip = (chip) => {
+    this.setState({
+      tags: _.without(this.state.tags, chip)
+    });
+  }
+
   ResetForm = () => {
     this.setState({
       title: "",
       description: "",
       createdBy: "",
       createrDetails: "",
-      prefix: ""
+      prefix: "",
+      tags: []
     });
   };
 
@@ -146,6 +161,7 @@ class AddVideo extends React.Component {
         createdBy: this.state.createdBy,
         createrDetails: this.state.createrDetails,
         prefix: this.state.prefix,
+        tags: this.state.tags,
       };
       this.props.addVideo(video, this.state.videoId);
       this.ResetForm();
@@ -273,6 +289,23 @@ class AddVideo extends React.Component {
                       />
                     </FormControl>
                   </Grid>
+
+                  <Grid className={classes.Grid} sm={12} xs={12} item>
+                    <FormControl fullWidth margin="none">
+                      <ChipInput
+                        label="Video Tags"
+                        value={this.state.tags}
+                        onAdd={(chip) => this.handleAddChip(chip)}
+                        onDelete={(chip, index) => this.handleDeleteChip(chip, index)}
+                        helperText={this.validator.message(
+                          "Video Tags",
+                          this.state.tags,
+                          "required|array"
+                        )}
+                      />
+                    </FormControl>
+                  </Grid>
+
                   <Grid className={classes.TitleGrid} xs={12} item>
                     <div>
                       <PersonOutlineIcon />

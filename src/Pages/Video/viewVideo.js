@@ -29,6 +29,8 @@ import _ from "underscore";
 import DeleteIcon from "@material-ui/icons/DeleteOutline";
 import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import PublishOutlinedIcon from '@material-ui/icons/PublishOutlined';
+import ChipInput from "material-ui-chip-input";
+
 
 
 const styles = theme => ({
@@ -263,6 +265,15 @@ class ViewVideo extends Component {
                                         <Typography className={classes.desc} variant="h6">
                                             {this.props.video.description}
                                         </Typography>
+                                    </div>
+                                </FormControl>
+
+                                <FormControl fullWidth margin="normal">
+                                    <div className={classes.fields}>
+                                        <Typography variant="body1">Video Tags</Typography>
+                                        <ChipInput
+                                            value={this.props.video.tags}
+                                        />
                                     </div>
                                 </FormControl>
 

@@ -144,3 +144,46 @@ export const fetchAllStudents = () => (dispatch) => {
       }
     });
 };
+
+// Fetch top students through total points.
+export const getTopStudents = () => (dispatch) => {
+  dispatch({
+    type: LOADING,
+  });
+  axios(config.DOMAIN + "/leaderBoards/getTopStudents", {
+    method: "GET",
+    headers: {
+      "content-type": "application/json",
+      Authorization: authenticate(),
+    },
+  })
+    .then((response) => {
+      dispatch({
+        type: FETCH_ALL_STUDENTS,
+        payload: response.data.students,
+      });
+      dispatch({
+        type: LOADED,
+      });
+    })
+    .catch((err) => {
+      dispatch({
+        type: LOADED,
+      });
+      if (err.response.status === 403) {
+        dispatch({
+          type: SESSION_EXPIRED,
+        });
+      } else {
+        if (err.response.data.error) {
+          toast.error(err.response.data.error);
+        } else if (err.response.data.errors.length > 0) {
+          err.response.data.errors.map((msg) => {
+            toast.error(msg.msg);
+          });
+        } else {
+          toast.error("Server is not connected!");
+        }
+      }
+    });
+};

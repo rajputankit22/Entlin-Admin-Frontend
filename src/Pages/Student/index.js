@@ -177,6 +177,7 @@ class Student extends Component {
         options: {
           filter: true,
           sort: true,
+          display: (this.props.title == 'All Students') ? 'true' : 'excluded',
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <span style={{ color: "#1e9ff2" }}>
@@ -194,7 +195,16 @@ class Student extends Component {
             );
           }
         }
-      }
+      },
+      {
+        name: "Points",
+        label: "Points",
+        options: {
+          filter: true,
+          sort: true,
+          display: (this.props.title == 'Top Students') ? 'true' : 'excluded',
+        },
+      },
     ];
 
     const options = {
@@ -236,7 +246,7 @@ class Student extends Component {
         <MuiThemeProvider theme={this.getMuiTheme()}>
           <div className={classes.TopBar}>
             <div>
-              <Typography variant="h5">All Students</Typography>
+              <Typography variant="h5">{this.props.title}</Typography>
             </div>
           </div>
 
@@ -246,7 +256,8 @@ class Student extends Component {
                 "Name": [student.studentName, student._id],
                 "Mobile": student.mobile,
                 "Email": student.email,
-                "Actions": student._id
+                "Actions": student._id,
+                "Points": student.total
               };
             })}
             columns={columns}

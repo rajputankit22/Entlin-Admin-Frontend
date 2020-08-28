@@ -387,7 +387,8 @@ class PermanentDrawerLeft extends React.Component {
                 <PrivateRoute path="/App/EditStudent" component={EditStudent} />
                 <PrivateRoute path="/App/UpdateEvent" component={UpdateEvent} />
                 <PrivateRoute path="/App/AddMentor" component={AddMentor} />
-                <PrivateRoute path="/App/AllStudents" component={AllStudents} />
+                <PrivateRoute path="/App/AllStudents" component={() => <AllStudents title={`All Students`} />} />
+                <PrivateRoute path="/App/TopStudents" component={() => <AllStudents title={`Top Students`} />} />
                 <PrivateRoute path="/App/History" component={History} />
               </Switch>
             </div>

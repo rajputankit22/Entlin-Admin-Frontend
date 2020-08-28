@@ -34,7 +34,7 @@ import GroupAddOutlinedIcon from '@material-ui/icons/GroupAddOutlined';
 import CastForEducationOutlinedIcon from '@material-ui/icons/CastForEducationOutlined';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import { fetchAllCourses } from "../store/actions/courseActions";
-import { fetchAllStudents } from "../store/actions/studentActions";
+import { fetchAllStudents, getTopStudents } from "../store/actions/studentActions";
 import { fetchAllMentors } from "../store/actions/mentorActions";
 import { fetchAllEmployees } from "../store/actions/adminActions";
 import { fetchAllVideos } from "../store/actions/videoActions";
@@ -120,6 +120,15 @@ function NavList(props) {
                 <DashboardOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Dashboard" />
+            </ListItem>
+          </Link>
+
+          <Link onClick={() => { props.getTopStudents() }} to="/App/TopStudents">
+            <ListItem selected={props.pathname === "/App/TopStudents" ? true : false} button >
+              <ListItemIcon>
+                <PeopleAltOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Leader Board" />
             </ListItem>
           </Link>
 
@@ -280,6 +289,7 @@ NavList.propTypes = {
   switchNavMain: PropTypes.func,
   fetchAllCourses: PropTypes.func,
   fetchAllStudents: PropTypes.func,
+  getTopStudents: PropTypes.func,
   fetchAllMentors: PropTypes.func,
   fetchAllEmployees: PropTypes.func,
   fetchAllVideos: PropTypes.func,
@@ -299,4 +309,4 @@ const mapStateToProps = (state) => ({
   mentor: state.mentor.mentor
 });
 
-export default connect(mapStateToProps, { switchNavMain, fetchAllCourses, fetchAllStudents, fetchAllMentors, fetchAllEmployees, fetchAllVideos, fetchAllEvents, fetchAllQuestions, fetchSingleStudentQuestions, fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers })(NavList);
+export default connect(mapStateToProps, { switchNavMain, fetchAllCourses, fetchAllStudents, getTopStudents, fetchAllMentors, fetchAllEmployees, fetchAllVideos, fetchAllEvents, fetchAllQuestions, fetchSingleStudentQuestions, fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers })(NavList);

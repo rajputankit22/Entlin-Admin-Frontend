@@ -4,7 +4,9 @@ import {
   SESSION_EXPIRED,
   UPDATE_STUDENT_PROFILE,
   FETCH_ALL_STUDENTS,
-  FETCH_STUDENT_BY_ID
+  FETCH_STUDENT_BY_ID,
+  RESET_PASSWORD,
+  RESET_PASSWORD_FIELDS
 } from "./types";
 import axios from "axios";
 import { authenticate } from "../../helper/localStore";
@@ -186,4 +188,57 @@ export const getTopStudents = () => (dispatch) => {
         }
       }
     });
+};
+
+// Reset password
+export const resetPassword = data => dispatch => {
+  dispatch({
+    type: LOADING
+  });
+  console.log("Url------", config.APP_DOMAIN)
+  axios(config.APP_DOMAIN + "/students/resetPassword", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      Authorization: authenticate()
+    },
+    data: data
+  })
+    .then(response => {
+      console.log("Response-----", response.data)
+      dispatch({
+        type: RESET_PASSWORD,
+        payload: response.data.message
+      });
+      dispatch({
+        type: LOADED
+      });
+    })
+    .catch(err => {
+      console.log("Page", err)
+      dispatch({
+        type: LOADED
+      });
+      if (err.response.status === 403) {
+        dispatch({
+          type: SESSION_EXPIRED
+        });
+      } else {
+        if (err.response.data.error) {
+          toast.error(err.response.data.error);
+        } else if (err.response.data.errors.length > 0) {
+          err.response.data.errors.map(msg => {
+            toast.error(msg.msg);
+          });
+        } else {
+          toast.error("Server is not connected!");
+        }
+      }
+    });
+};
+
+export const resetPasswordFields = () => dispatch => {
+  dispatch({
+    type: RESET_PASSWORD_FIELDS
+  });
 };

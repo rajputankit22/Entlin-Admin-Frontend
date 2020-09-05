@@ -3,6 +3,7 @@ import "./App.css";
 import PropTypes from "prop-types";
 import SignIn from "./Components/Signin/SignIn";
 import AdminPanel from "./DashboardLayout";
+import NewPassword from "../src/Components/forgetPassword/newPassword";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -77,6 +78,7 @@ function Application(props) {
         <Router>
           <div className="App">
             <Route exact path="/" component={SignIn} />
+            <Route exact path="/NewPassword/:key" component={NewPassword} />
             <Route path="/App" component={AdminPanel} />
           </div>
         </Router>

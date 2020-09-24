@@ -32,6 +32,7 @@ import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import GroupAddOutlinedIcon from '@material-ui/icons/GroupAddOutlined';
 import CastForEducationOutlinedIcon from '@material-ui/icons/CastForEducationOutlined';
+import CardMembershipIcon from '@material-ui/icons/CardMembership';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import { fetchAllCourses } from "../store/actions/courseActions";
 import { fetchAllStudents, getTopStudents } from "../store/actions/studentActions";
@@ -41,6 +42,7 @@ import { fetchAllVideos } from "../store/actions/videoActions";
 import { fetchAllEvents } from "../store/actions/eventActions";
 import { fetchAllQuestions, fetchSingleStudentQuestions } from "../store/actions/questionActions";
 import { fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers } from "../store/actions/answerActions";
+import { fetchAllSubscriptions, fetchStudentSubscriptions } from "../store/actions/subscriptionActions";
 
 
 
@@ -195,6 +197,15 @@ function NavList(props) {
             </ListItem>
           </Link>
 
+          <Link onClick={() => { props.fetchAllSubscriptions() }} to="/App/AllSubscriptions">
+            <ListItem selected={props.pathname === "/App/AllSubscriptions" ? true : false} button >
+              <ListItemIcon>
+                <CardMembershipIcon />
+              </ListItemIcon>
+              <ListItemText primary="Subscriptions" />
+            </ListItem>
+          </Link>
+
           <Link onClick={() => { props.fetchAllEmployees() }} to="/App/AllEmployees">
             <ListItem selected={props.pathname === "/App/AllEmployees" ? true : false} button >
               <ListItemIcon>
@@ -244,6 +255,16 @@ function NavList(props) {
               <ListItemText primary="Answers" />
             </ListItem>
           </Link>
+
+          <Link onClick={() => { props.fetchStudentSubscriptions(props.student._id) }} to="/App/AllSubscriptions">
+            <ListItem selected={props.pathname === "/App/AllSubscriptions" ? true : false} button >
+              <ListItemIcon>
+                <CardMembershipIcon />
+              </ListItemIcon>
+              <ListItemText primary="Subscriptions" />
+            </ListItem>
+          </Link>
+
         </List>
       )}
 
@@ -309,4 +330,4 @@ const mapStateToProps = (state) => ({
   mentor: state.mentor.mentor
 });
 
-export default connect(mapStateToProps, { switchNavMain, fetchAllCourses, fetchAllStudents, getTopStudents, fetchAllMentors, fetchAllEmployees, fetchAllVideos, fetchAllEvents, fetchAllQuestions, fetchSingleStudentQuestions, fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers })(NavList);
+export default connect(mapStateToProps, { switchNavMain, fetchAllCourses, fetchAllStudents, getTopStudents, fetchAllMentors, fetchAllEmployees, fetchAllVideos, fetchAllEvents, fetchAllQuestions, fetchSingleStudentQuestions, fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers, fetchAllSubscriptions, fetchStudentSubscriptions })(NavList);

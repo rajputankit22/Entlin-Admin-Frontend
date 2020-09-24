@@ -17,6 +17,7 @@ import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import { Link, Switch, Redirect } from "react-router-dom";
 import AllEmployees from "../Pages/Employees";
 import AllQuestions from "../Pages/Question";
+import AllSubscriptions from "../Pages/Subscription";
 import AllAnswers from "../Pages/Answer";
 import AllMentors from "../Pages/Mentor";
 import AllEvents from "../Pages/Event";
@@ -362,6 +363,7 @@ class PermanentDrawerLeft extends React.Component {
                 <PrivateRoute path="/App/Dashboard" component={Dashboard} />
                 <PrivateRoute path="/App/AllEmployees" component={AllEmployees} />
                 <PrivateRoute path="/App/AllQuestions" component={AllQuestions} />
+                <PrivateRoute path="/App/AllSubscriptions" component={AllSubscriptions} />
                 <PrivateRoute path="/App/AllAnswers" component={AllAnswers} />
                 <PrivateRoute path="/App/AllMentors" component={AllMentors} />
                 <PrivateRoute path="/App/AllEvents" component={AllEvents} />

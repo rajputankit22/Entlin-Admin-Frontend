@@ -11,6 +11,7 @@ import videoReducer from "./videoReducer";
 import courseReducer from "./courseReducer";
 import questionReducer from "./questionReducer";
 import answerReducer from "./answerReducer";
+import subscriptionReducer from "./subscriptionReducer";
 
 export default combineReducers({
   admin: adminReducer,
@@ -24,5 +25,6 @@ export default combineReducers({
   course: courseReducer,
   ui: uiReducer,
   history: historyReducer,
-  home: homeReducer
+  home: homeReducer,
+  subscription: subscriptionReducer
 });

@@ -199,9 +199,6 @@ export const fetchAllVideos = () => (dispatch) => {
 
 // Upload a video
 export const uploadVideo = (videoId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/videos/uploadVideo/" + videoId, {
     method: "GET",
     headers: {
@@ -212,18 +209,11 @@ export const uploadVideo = (videoId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: UPLOAD_VIDEO,
-        payload: response.data.video,
+        payload: response.data,
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllVideos());
-      toast.success("Successfully Uploaded!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,
@@ -244,9 +234,6 @@ export const uploadVideo = (videoId) => (dispatch) => {
 
 // UnUpload a video
 export const unUploadVideo = (videoId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/videos/unUploadVideo/" + videoId, {
     method: "GET",
     headers: {
@@ -257,18 +244,11 @@ export const unUploadVideo = (videoId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: UNUPLOAD_VIDEO,
-        payload: response.data.video,
+        payload: response.data,
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllVideos());
-      toast.success("Successfully Unuploaded!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,
@@ -289,9 +269,6 @@ export const unUploadVideo = (videoId) => (dispatch) => {
 
 // Publish a video
 export const publishVideo = (videoId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/videos/publishVideo/" + videoId, {
     method: "GET",
     headers: {
@@ -302,18 +279,11 @@ export const publishVideo = (videoId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: PUBLISH_VIDEO,
-        payload: response.data.video,
+        payload: response.data,
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllVideos());
-      toast.success("Successfully Published!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,
@@ -334,9 +304,6 @@ export const publishVideo = (videoId) => (dispatch) => {
 
 // UnPublish a video
 export const unPublishVideo = (videoId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/videos/unPublishVideo/" + videoId, {
     method: "GET",
     headers: {
@@ -347,18 +314,11 @@ export const unPublishVideo = (videoId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: UNPUBLISH_VIDEO,
-        payload: response.data.video,
+        payload: response.data,
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllVideos());
-      toast.success("Successfully UnPublished!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,
@@ -379,9 +339,6 @@ export const unPublishVideo = (videoId) => (dispatch) => {
 
 // Delete a video
 export const deleteVideo = (videoId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/videos/deleteVideo/" + videoId, {
     method: "GET",
     headers: {
@@ -392,18 +349,11 @@ export const deleteVideo = (videoId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: DELETE_VIDEO,
-        payload: response
+        payload: response.data
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllVideos());
-      toast.success("Successfully Deleted!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,

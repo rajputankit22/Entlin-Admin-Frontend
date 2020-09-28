@@ -16,6 +16,7 @@ export default function (state = initialState, action) {
     case DELETE_ANSWER:
       return {
         ...state,
+        allAnswers: state.allAnswers.filter(answer => answer._id != action.payload.answerId)
       };
     case FETCH_ALL_ANSWERS:
       return {

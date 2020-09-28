@@ -29,22 +29,26 @@ export default function (state = initialState, action) {
     case UPLOAD_COURSE:
       return {
         ...state,
-        course: action.payload
+        course: action.payload.course,
+        allCourses: state.allCourses.map(course => course._id === action.payload.course._id ? { ...course, ...action.payload.course } : course)
       };
     case UNUPLOAD_COURSE:
       return {
         ...state,
-        course: action.payload
+        course: action.payload.course,
+        allCourses: state.allCourses.map(course => course._id === action.payload.course._id ? { ...course, ...action.payload.course } : course)
       };
     case PUBLISH_COURSE:
       return {
         ...state,
-        course: action.payload
+        course: action.payload.course,
+        allCourses: state.allCourses.map(course => course._id === action.payload.course._id ? { ...course, ...action.payload.course } : course)
       };
     case UNPUBLISH_COURSE:
       return {
         ...state,
-        course: action.payload
+        course: action.payload.course,
+        allCourses: state.allCourses.map(course => course._id === action.payload.course._id ? { ...course, ...action.payload.course } : course)
       };
     case FETCH_ALL_COURSES:
       return {
@@ -57,6 +61,11 @@ export default function (state = initialState, action) {
         ...state,
         isLoading: false,
         course: action.payload
+      };
+    case DELETE_COURSE:
+      return {
+        ...state,
+        allCourses: state.allCourses.filter(course => course._id != action.payload.courseId)
       };
     default:
       return state;

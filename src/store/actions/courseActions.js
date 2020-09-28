@@ -40,7 +40,7 @@ export const addCourse = (course) => (dispatch) => {
       dispatch({
         type: LOADED,
       });
-      toast.success("Course Successfully Added!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
       dispatch({
@@ -198,9 +198,6 @@ export const fetchAllCourses = () => (dispatch) => {
 
 // Upload a course.
 export const uploadCourse = (courseId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/courses/uploadCourse/" + courseId, {
     method: "GET",
     headers: {
@@ -211,18 +208,11 @@ export const uploadCourse = (courseId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: UPLOAD_COURSE,
-        payload: response.data.course,
+        payload: response.data,
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllCourses());
-      toast.success("Successfully Uploaded!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,
@@ -243,9 +233,6 @@ export const uploadCourse = (courseId) => (dispatch) => {
 
 // UnUpload a course
 export const unUploadCourse = (courseId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/courses/unUploadCourse/" + courseId, {
     method: "GET",
     headers: {
@@ -256,18 +243,11 @@ export const unUploadCourse = (courseId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: UNUPLOAD_COURSE,
-        payload: response.data.course,
+        payload: response.data,
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllCourses());
-      toast.success("Successfully Unuploaded!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,
@@ -288,9 +268,6 @@ export const unUploadCourse = (courseId) => (dispatch) => {
 
 // Publish a course.
 export const publishCourse = (courseID) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/courses/publishCourse/" + courseID, {
     method: "GET",
     headers: {
@@ -301,18 +278,11 @@ export const publishCourse = (courseID) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: PUBLISH_COURSE,
-        payload: response.data.course,
+        payload: response.data,
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllCourses());
-      toast.success("Successfully Published!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,
@@ -333,9 +303,6 @@ export const publishCourse = (courseID) => (dispatch) => {
 
 // UnPublish a course
 export const unPublishCourse = (courseId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/courses/unPublishCourse/" + courseId, {
     method: "GET",
     headers: {
@@ -346,18 +313,11 @@ export const unPublishCourse = (courseId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: UNPUBLISH_COURSE,
-        payload: response.data.course,
+        payload: response.data,
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllCourses());
-      toast.success("Successfully UnPublished!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,
@@ -378,9 +338,6 @@ export const unPublishCourse = (courseId) => (dispatch) => {
 
 // Delete a course
 export const deleteCourse = (courseId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/courses/deleteCourse/" + courseId, {
     method: "GET",
     headers: {
@@ -391,18 +348,11 @@ export const deleteCourse = (courseId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: DELETE_COURSE,
-        payload: response
+        payload: response.data
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllCourses());
-      toast.success("Successfully Deleted!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,

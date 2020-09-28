@@ -30,12 +30,12 @@ export const addEvent = (event) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: ADD_EVENT,
-        payload: response,
+        payload: response.data,
       });
       dispatch({
         type: LOADED,
       });
-      toast.success("Event Successfully Added!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
       dispatch({
@@ -194,9 +194,6 @@ export const fetchAllEvents = () => (dispatch) => {
 
 // Delete One event.
 export const deleteEvent = (eventId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/events/deleteEvent/" + eventId, {
     method: "GET",
     headers: {
@@ -207,17 +204,11 @@ export const deleteEvent = (eventId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: DELETE_EVENT,
+        payload: response.data
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllEvents());
-      toast.success("Event Successfully Deleted!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,

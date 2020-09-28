@@ -2,7 +2,8 @@ import {
   ADD_EVENT,
   UPDATE_EVENT,
   FETCH_ALL_EVENTS,
-  FETCH_EVENT_BY_ID
+  FETCH_EVENT_BY_ID,
+  DELETE_EVENT
 } from "../actions/types";
 
 const initialState = {
@@ -22,16 +23,18 @@ export default function (state = initialState, action) {
         ...state,
         event: action.payload
       };
-
     case FETCH_ALL_EVENTS:
       return {
         ...state,
         isLoading: false,
         allEvents: action.payload
       };
+    case DELETE_EVENT:
+      return {
+        ...state,
+        allEvents: state.allEvents.filter(event => event._id != action.payload.eventId)
+      };
     case FETCH_EVENT_BY_ID:
-      console.log(action.payload)
-      console.log(action.payload)
       return {
         ...state,
         isLoading: false,

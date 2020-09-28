@@ -29,28 +29,37 @@ export default function (state = initialState, action) {
     case UPLOAD_VIDEO:
       return {
         ...state,
-        video: action.payload
+        video: action.payload.video,
+        allVideos: state.allVideos.map(video => video._id === action.payload.video._id ? { ...video, ...action.payload.video } : video)
       };
     case UNUPLOAD_VIDEO:
       return {
         ...state,
-        video: action.payload
+        video: action.payload.video,
+        allVideos: state.allVideos.map(video => video._id === action.payload.video._id ? { ...video, ...action.payload.video } : video)
       };
     case PUBLISH_VIDEO:
       return {
         ...state,
-        video: action.payload
+        video: action.payload.video,
+        allVideos: state.allVideos.map(video => video._id === action.payload.video._id ? { ...video, ...action.payload.video } : video)
       };
     case UNPUBLISH_VIDEO:
       return {
         ...state,
-        video: action.payload
+        video: action.payload.video,
+        allVideos: state.allVideos.map(video => video._id === action.payload.video._id ? { ...video, ...action.payload.video } : video)
       };
     case FETCH_ALL_VIDEOS:
       return {
         ...state,
         isLoading: false,
         allVideos: action.payload
+      };
+    case DELETE_VIDEO:
+      return {
+        ...state,
+        allVideos: state.allVideos.filter(video => video._id != action.payload.videoId)
       };
     case FETCH_VIDEO_BY_ID:
       return {

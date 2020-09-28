@@ -146,9 +146,6 @@ export const fetchAllQuestions = () => (dispatch) => {
 
 // Delete One question.
 export const deleteQuestion = (questionId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/questions/deleteQuestion/" + questionId, {
     method: "GET",
     headers: {
@@ -159,17 +156,11 @@ export const deleteQuestion = (questionId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: DELETE_QUESTION,
+        payload: response.data
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllQuestions());
-      toast.success("Question Successfully Deleted!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,
@@ -190,9 +181,6 @@ export const deleteQuestion = (questionId) => (dispatch) => {
 
 // Close One question.
 export const closeQuestion = (questionId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/questions/closeQuestion/" + questionId, {
     method: "GET",
     headers: {
@@ -203,17 +191,11 @@ export const closeQuestion = (questionId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: CLOSE_QUESTION,
+        payload: response.data
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllQuestions());
-      toast.success("Question Successfully Closed!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
-      dispatch({
-        type: LOADED,
-      });
       if (err.response.status === 403) {
         dispatch({
           type: SESSION_EXPIRED,

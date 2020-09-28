@@ -188,9 +188,6 @@ export const fetchAllAnswers = () => (dispatch) => {
 
 // Delete One answer.
 export const deleteAnswer = (answerId) => (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
   axios(config.DOMAIN + "/answers/deleteAnswer/" + answerId, {
     method: "GET",
     headers: {
@@ -201,12 +198,9 @@ export const deleteAnswer = (answerId) => (dispatch) => {
     .then((response) => {
       dispatch({
         type: DELETE_ANSWER,
+        payload: response.data
       });
-      dispatch({
-        type: LOADED,
-      });
-      dispatch(fetchAllAnswers());
-      toast.success("Answer Successfully Deleted!");
+      toast.success(response.data.message);
     })
     .catch((err) => {
       dispatch({

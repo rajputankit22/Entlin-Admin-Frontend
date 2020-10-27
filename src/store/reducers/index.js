@@ -8,6 +8,7 @@ import mentorReducer from "./mentorReducer";
 import studentReducer from "./studentReducer";
 import eventReducer from "./eventReducer";
 import videoReducer from "./videoReducer";
+import incubationReducer from "./incubationReducer";
 import courseReducer from "./courseReducer";
 import questionReducer from "./questionReducer";
 import answerReducer from "./answerReducer";
@@ -26,5 +27,6 @@ export default combineReducers({
   ui: uiReducer,
   history: historyReducer,
   home: homeReducer,
-  subscription: subscriptionReducer
+  subscription: subscriptionReducer,
+  incubation: incubationReducer
 });

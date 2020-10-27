@@ -22,6 +22,7 @@ import AllAnswers from "../Pages/Answer";
 import AllMentors from "../Pages/Mentor";
 import AllEvents from "../Pages/Event";
 import AllVideos from "../Pages/Video";
+import AllIncubations from "../Pages/Incubation";
 import AllCourses from "../Pages/Courses";
 import AddEvent from "../Pages/Event/addEvent";
 import AddVideo from "../Pages/Video/addVideo";
@@ -31,9 +32,11 @@ import ViewMentor from "../Pages/Mentor/viewMentor";
 import ViewStudent from "../Pages/Student/viewStudent";
 import ViewCourse from "../Pages/Courses/viewCourse";
 import ViewEvent from "../Pages/Event/viewEvent";
+import ViewIncubation from "../Pages/Incubation/viewIncubation";
 import ViewQuestion from "../Pages/Question/viewQuestion";
 import ViewAnswer from "../Pages/Answer/viewAnswer";
 import UpdateVideo from "../Pages/Video/updateVideo";
+import UpdateIncubation from "../Pages/Incubation/updateIncubation";
 import AddEmployee from "../Pages/Employees/addEmployee";
 import ViewEmployee from "../Pages/Employees/viewEmployee";
 import Dashboard from "../Pages/Dashboard";
@@ -369,13 +372,16 @@ class PermanentDrawerLeft extends React.Component {
                 <PrivateRoute path="/App/AllEvents" component={AllEvents} />
                 <PrivateRoute path="/App/AllVideos" component={AllVideos} />
                 <PrivateRoute path="/App/AllCourses" component={AllCourses} />
+                <PrivateRoute path="/App/AllIncubations" component={AllIncubations} />
                 <PrivateRoute path="/App/AddEvent" component={AddEvent} />
                 <PrivateRoute path="/App/AddVideo" component={AddVideo} />
                 <PrivateRoute path="/App/AddCourse" component={AddCourse} />
                 <PrivateRoute path="/App/UpdateVideo" component={UpdateVideo} />
+                <PrivateRoute path="/App/UpdateIncubation" component={UpdateIncubation} />
                 <PrivateRoute path="/App/ViewVideo" component={ViewVideo} />
                 <PrivateRoute path="/App/ViewEmployee" component={ViewEmployee} />
                 <PrivateRoute path="/App/ViewEvent" component={ViewEvent} />
+                <PrivateRoute path="/App/ViewIncubation" component={ViewIncubation} />
                 <PrivateRoute path="/App/ViewQuestion" component={ViewQuestion} />
                 <PrivateRoute path="/App/ViewAnswer" component={ViewAnswer} />
                 <PrivateRoute path="/App/ViewCourse" component={ViewCourse} />

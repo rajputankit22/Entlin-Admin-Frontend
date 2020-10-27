@@ -14,6 +14,7 @@ import AssignmentIndOutlinedIcon from "@material-ui/icons/AssignmentIndOutlined"
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import ScheduleOutlinedIcon from "@material-ui/icons/ScheduleOutlined";
+import WbIncandescentOutlinedIcon from '@material-ui/icons/WbIncandescentOutlined';
 import PeopleAltOutlinedIcon from "@material-ui/icons/PeopleAltOutlined";
 import { connect } from "react-redux";
 import { switchNavMain } from "../store/actions/uiAction";
@@ -34,6 +35,7 @@ import GroupAddOutlinedIcon from '@material-ui/icons/GroupAddOutlined';
 import CastForEducationOutlinedIcon from '@material-ui/icons/CastForEducationOutlined';
 import CardMembershipIcon from '@material-ui/icons/CardMembership';
 import QuestionAnswerOutlinedIcon from '@material-ui/icons/QuestionAnswerOutlined';
+import { fetchAllIncubations } from "../store/actions/incubationActions";
 import { fetchAllCourses } from "../store/actions/courseActions";
 import { fetchAllStudents, getTopStudents } from "../store/actions/studentActions";
 import { fetchAllMentors } from "../store/actions/mentorActions";
@@ -140,6 +142,15 @@ function NavList(props) {
                 <PeopleAltOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Students" />
+            </ListItem>
+          </Link>
+
+          <Link onClick={() => { props.fetchAllIncubations() }} to="/App/AllIncubations">
+            <ListItem selected={props.pathname === "/App/AllIncubations" ? true : false} button >
+              <ListItemIcon>
+                <WbIncandescentOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Incubations" />
             </ListItem>
           </Link>
 
@@ -330,4 +341,4 @@ const mapStateToProps = (state) => ({
   mentor: state.mentor.mentor
 });
 
-export default connect(mapStateToProps, { switchNavMain, fetchAllCourses, fetchAllStudents, getTopStudents, fetchAllMentors, fetchAllEmployees, fetchAllVideos, fetchAllEvents, fetchAllQuestions, fetchSingleStudentQuestions, fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers, fetchAllSubscriptions, fetchStudentSubscriptions })(NavList);
+export default connect(mapStateToProps, { switchNavMain, fetchAllCourses, fetchAllStudents, getTopStudents, fetchAllMentors, fetchAllEmployees, fetchAllVideos, fetchAllEvents, fetchAllQuestions, fetchSingleStudentQuestions, fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers, fetchAllSubscriptions, fetchStudentSubscriptions, fetchAllIncubations })(NavList);

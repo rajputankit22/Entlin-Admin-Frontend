@@ -28,6 +28,8 @@ import AddEvent from "../Pages/Event/addEvent";
 import AddVideo from "../Pages/Video/addVideo";
 import AddCourse from "../Pages/Courses/addCourse";
 import ViewVideo from "../Pages/Video/viewVideo";
+import ViewDocument from "../Pages/Document/viewDocument";
+import AllDocuments from "../Pages/Document/index";
 import ViewMentor from "../Pages/Mentor/viewMentor";
 import ViewStudent from "../Pages/Student/viewStudent";
 import ViewCourse from "../Pages/Courses/viewCourse";
@@ -45,6 +47,7 @@ import UpdateEvent from "../Pages/Event/updateEvent";
 import EditMentor from "../Pages/Mentor/updateMentor";
 import EditStudent from "../Pages/Student/updateStudent";
 import AddMentor from "../Pages/Mentor/addMentor";
+import AddDocument from "../Pages/Document/addDocument";
 import AccountSetting from "../Pages/AccountSetting";
 import EditProfileAdmin from "../Pages/AccountSetting/EditProfileAdmin";
 import AllStudents from "../Pages/Student";
@@ -368,6 +371,7 @@ class PermanentDrawerLeft extends React.Component {
                 <PrivateRoute path="/App/AllQuestions" component={AllQuestions} />
                 <PrivateRoute path="/App/AllSubscriptions" component={AllSubscriptions} />
                 <PrivateRoute path="/App/AllAnswers" component={AllAnswers} />
+                <PrivateRoute path="/App/AllDocuments" component={AllDocuments} />
                 <PrivateRoute path="/App/AllMentors" component={AllMentors} />
                 <PrivateRoute path="/App/AllEvents" component={AllEvents} />
                 <PrivateRoute path="/App/AllVideos" component={AllVideos} />
@@ -379,6 +383,7 @@ class PermanentDrawerLeft extends React.Component {
                 <PrivateRoute path="/App/UpdateVideo" component={UpdateVideo} />
                 <PrivateRoute path="/App/UpdateIncubation" component={UpdateIncubation} />
                 <PrivateRoute path="/App/ViewVideo" component={ViewVideo} />
+                <PrivateRoute path="/App/ViewDocument" component={ViewDocument} />
                 <PrivateRoute path="/App/ViewEmployee" component={ViewEmployee} />
                 <PrivateRoute path="/App/ViewEvent" component={ViewEvent} />
                 <PrivateRoute path="/App/ViewIncubation" component={ViewIncubation} />
@@ -388,6 +393,7 @@ class PermanentDrawerLeft extends React.Component {
                 <PrivateRoute path="/App/ViewMentor" component={ViewMentor} />
                 <PrivateRoute path="/App/ViewStudent" component={ViewStudent} />
                 <PrivateRoute path="/App/AddEmployee" component={AddEmployee} />
+                <PrivateRoute path="/App/AddDocument" component={AddDocument} />
                 <PrivateRoute path="/App/AccountSetting" component={AccountSetting} />
                 <PrivateRoute path="/App/EditProfileAdmin" component={EditProfileAdmin} />
                 <PrivateRoute path="/App/UpdateEmployee" component={UpdateEmployee} />

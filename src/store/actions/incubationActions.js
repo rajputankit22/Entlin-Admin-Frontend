@@ -192,6 +192,7 @@ export const getPreSignedUrl = (fileName) => (dispatch) => {
     },
   })
     .then((response) => {
+      console.log("Pre Signed Url", response.data.url)
       if (response.data.url) {
         window.open(response.data.url, "_blank");
       }

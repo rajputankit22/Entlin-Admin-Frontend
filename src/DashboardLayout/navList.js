@@ -15,6 +15,7 @@ import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import ScheduleOutlinedIcon from "@material-ui/icons/ScheduleOutlined";
 import WbIncandescentOutlinedIcon from '@material-ui/icons/WbIncandescentOutlined';
+import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import PeopleAltOutlinedIcon from "@material-ui/icons/PeopleAltOutlined";
 import { connect } from "react-redux";
 import { switchNavMain } from "../store/actions/uiAction";
@@ -45,6 +46,7 @@ import { fetchAllEvents } from "../store/actions/eventActions";
 import { fetchAllQuestions, fetchSingleStudentQuestions } from "../store/actions/questionActions";
 import { fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers } from "../store/actions/answerActions";
 import { fetchAllSubscriptions, fetchStudentSubscriptions } from "../store/actions/subscriptionActions";
+import { fetchAllDocuments } from "../store/actions/documentActions";
 
 
 
@@ -151,6 +153,15 @@ function NavList(props) {
                 <WbIncandescentOutlinedIcon />
               </ListItemIcon>
               <ListItemText primary="Incubations" />
+            </ListItem>
+          </Link>
+
+          <Link onClick={() => { props.fetchAllDocuments() }} to="/App/AllDocuments">
+            <ListItem selected={props.pathname === "/App/AllDocuments" ? true : false} button >
+              <ListItemIcon>
+                <InsertDriveFileIcon />
+              </ListItemIcon>
+              <ListItemText primary="Documents" />
             </ListItem>
           </Link>
 
@@ -330,7 +341,8 @@ NavList.propTypes = {
   fetchSingleStudentQuestions: PropTypes.func,
   fetchAllAnswers: PropTypes.func,
   fetchSingleStudentAnswers: PropTypes.func,
-  fetchSingleMentorAnswers: PropTypes.func
+  fetchSingleMentorAnswers: PropTypes.func,
+  fetchAllDocuments: PropTypes.func
 };
 
 
@@ -341,4 +353,4 @@ const mapStateToProps = (state) => ({
   mentor: state.mentor.mentor
 });
 
-export default connect(mapStateToProps, { switchNavMain, fetchAllCourses, fetchAllStudents, getTopStudents, fetchAllMentors, fetchAllEmployees, fetchAllVideos, fetchAllEvents, fetchAllQuestions, fetchSingleStudentQuestions, fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers, fetchAllSubscriptions, fetchStudentSubscriptions, fetchAllIncubations })(NavList);
+export default connect(mapStateToProps, { switchNavMain, fetchAllCourses, fetchAllStudents, getTopStudents, fetchAllMentors, fetchAllEmployees, fetchAllVideos, fetchAllEvents, fetchAllQuestions, fetchSingleStudentQuestions, fetchAllAnswers, fetchSingleStudentAnswers, fetchSingleMentorAnswers, fetchAllSubscriptions, fetchStudentSubscriptions, fetchAllIncubations, fetchAllDocuments })(NavList);

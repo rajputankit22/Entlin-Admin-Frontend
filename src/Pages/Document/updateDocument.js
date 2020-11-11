@@ -196,8 +196,8 @@ class UpdateDocument extends React.Component {
         description: this.state.description,
         originalFileName: this.state.originalFileName,
         fileName: this.state.fileName,
-        file: this.state.file
       };
+      if (this.state.file) document.file = this.state.file;
       this.props.updateDocument(document, this.state.documentId);
     } else {
       this.validator.showMessages();
@@ -303,7 +303,6 @@ class UpdateDocument extends React.Component {
                         id="originalFileName"
                         type="file"
                         inputProps={{ accept: 'image/*, .xlsx, .xls, .csv, .pdf, .pptx, .pptm, .ppt' }}
-                        required
                         label="Document"
                         name="originalFileName"
                         onChange={e => this.handleFileRead(e)}

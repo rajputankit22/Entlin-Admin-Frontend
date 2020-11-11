@@ -44,6 +44,7 @@ import ViewEmployee from "../Pages/Employees/viewEmployee";
 import Dashboard from "../Pages/Dashboard";
 import UpdateEmployee from "../Pages/Employees/updateEmployee";
 import UpdateEvent from "../Pages/Event/updateEvent";
+import UpdateDocument from "../Pages/Document/updateDocument";
 import EditMentor from "../Pages/Mentor/updateMentor";
 import EditStudent from "../Pages/Student/updateStudent";
 import AddMentor from "../Pages/Mentor/addMentor";
@@ -400,6 +401,7 @@ class PermanentDrawerLeft extends React.Component {
                 <PrivateRoute path="/App/EditMentor" component={EditMentor} />
                 <PrivateRoute path="/App/EditStudent" component={EditStudent} />
                 <PrivateRoute path="/App/UpdateEvent" component={UpdateEvent} />
+                <PrivateRoute path="/App/UpdateDocument" component={UpdateDocument} />
                 <PrivateRoute path="/App/AddMentor" component={AddMentor} />
                 <PrivateRoute path="/App/AllStudents" component={() => <AllStudents title={`All Students`} />} />
                 <PrivateRoute path="/App/TopStudents" component={() => <AllStudents title={`Top Students`} />} />

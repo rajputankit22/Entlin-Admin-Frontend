@@ -13,7 +13,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import Tooltip from "@material-ui/core/Tooltip";
-import { updateVideo } from "../../store/actions/videoActions";
+import { updateDocument } from "../../store/actions/documentActions";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Input from "@material-ui/core/Input";
@@ -31,8 +31,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import SimpleReactValidator from "simple-react-validator";
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
-
-
+import { getPreSignedUrl } from "../../store/actions/incubationActions";
 
 
 const ITEM_HEIGHT = 48;
@@ -109,26 +108,66 @@ const styles = (theme) => ({
   },
 });
 
-class UpdateVideo extends React.Component {
+class UpdateDocument extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      videoId: "",
+      documentId: "",
       title: "",
       description: "",
-      createdBy: "",
-      createrDetails: ""
+      originalFileName: "",
+      fileName: "",
+      file: ""
     };
     this.validator = new SimpleReactValidator();
   }
 
+  // Get pre signed Url
+  getPreSignedUrl = (fileName) => () => {
+    this.props.getPreSignedUrl(fileName);
+  };
+
+  handleFileRead = async (event) => {
+    const file = event.target.files[0]
+    if (file) {
+      const base64 = await this.convertBase64(file)
+      const remeovedTypeBase64 = base64.replace(/^data:[/a-z]+;base64,/, "")
+      this.setState({
+        originalFileName: file.name,
+        file: remeovedTypeBase64,
+      });
+    } else {
+      alert("Please select file.")
+      this.setState({
+        originalFileName: this.state.originalFileNameOld,
+        fileName: this.state.fileNameOld
+      });
+    }
+  }
+
+  convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      fileReader.onerror = (error) => {
+        reject(error);
+      }
+    })
+  }
+
   componentWillReceiveProps(nextProps, prevProps) {
     this.setState({
-      videoId: nextProps.video._id,
-      title: nextProps.video.title,
-      description: nextProps.video.description,
-      createdBy: nextProps.video.createdBy,
-      createrDetails: nextProps.video.createrDetails,
+      documentId: nextProps.document._id,
+      title: nextProps.document.title,
+      description: nextProps.document.description,
+      originalFileName: nextProps.document.originalFileName,
+      fileName: nextProps.document.fileName,
+      originalFileNameOld: nextProps.document.originalFileName,
+      fileNameOld: nextProps.document.fileName,
+      file: ""
     });
   }
 
@@ -140,30 +179,26 @@ class UpdateVideo extends React.Component {
 
   ResetForm = () => {
     this.setState({
-      videoId: "",
+      documentId: "",
       title: "",
       description: "",
-      createdBy: "",
-      createrDetails: ""
+      originalFileName: "",
+      fileName: "",
+      file: ""
     });
   };
-
-  // handleDateChange = (date) => {
-  //   this.setState({
-  //     selectedDate: date,
-  //   });
-  // };
 
   SubmitForm = (e) => {
     e.preventDefault();
     if (this.validator.allValid()) {
-      const video = {
+      const document = {
         title: this.state.title,
         description: this.state.description,
-        createdBy: this.state.createdBy,
-        createrDetails: this.state.createrDetails,
+        originalFileName: this.state.originalFileName,
+        fileName: this.state.fileName,
+        file: this.state.file
       };
-      this.props.updateVideo(video, this.state.videoId);
+      this.props.updateDocument(document, this.state.documentId);
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -183,7 +218,7 @@ class UpdateVideo extends React.Component {
                     <Toolbar className={classes.toolbar}>
                       <div className={classes.df}>
                         <Typography color="secondary" variant="h5">
-                          Update Video
+                          Update Document
                         </Typography>
                       </div>
                       <Tooltip title="Reset Form">
@@ -202,7 +237,7 @@ class UpdateVideo extends React.Component {
                     <div>
                       <OndemandVideoIcon />
                       <Typography color="secondary" variant="subtitle1">
-                        Video Details
+                        Document Details
                       </Typography>
                     </div>
                     <hr />
@@ -262,72 +297,31 @@ class UpdateVideo extends React.Component {
                       />
                     </FormControl>
                   </Grid>
-                  <Grid className={classes.TitleGrid} xs={12} item>
-                    <div>
-                      <PersonOutlineIcon />
-                      <Typography color="secondary" variant="subtitle1">
-                        Creator Details
-                      </Typography>
-                    </div>
-                    <hr />
-                  </Grid>
                   <Grid className={classes.Grid} sm={12} xs={12} item>
                     <FormControl fullWidth margin="none">
                       <MyTextField
-                        value={this.state.createdBy}
+                        id="originalFileName"
+                        type="file"
+                        inputProps={{ accept: 'image/*, .xlsx, .xls, .csv, .pdf, .pptx, .pptm, .ppt' }}
                         required
-                        id="createdBy"
-                        label="Created By"
-                        name="createdBy"
-                        onChange={this.onChange}
+                        label="Document"
+                        name="originalFileName"
+                        onChange={e => this.handleFileRead(e)}
                         size="small"
                         variant="standard"
-                        inputProps={{
-                          minLength: 2,
-                          maxLength: 100,
-                        }}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        helperText={this.validator.message(
-                          "Created By",
-                          this.state.createdBy,
-                          "required|min:2|max:100|alpha_space"
-                        )}
                       />
                     </FormControl>
                   </Grid>
                   <Grid className={classes.Grid} sm={12} xs={12} item>
-                    <FormControl fullWidth margin="none">
-                      <MyTextField
-                        value={this.state.createrDetails}
-                        id="createrDetails"
-                        label="Creater Details"
-                        required
-                        multiline
-                        rows="5"
-                        name="createrDetails"
-                        onChange={this.onChange}
-                        size="small"
-                        variant="outlined"
-                        inputProps={{
-                          minLength: 2,
-                          maxLength: 2000
-                        }}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        helperText={this.validator.message(
-                          "Creater Details",
-                          this.state.createrDetails,
-                          "required|min:2|max:2000"
-                        )}
-                      />
-                    </FormControl>
+                    <div className={classes.fields}>
+                      <Typography variant="body1">File</Typography>
+                      <Typography variant="h6" >
+                        <Link onClick={this.getPreSignedUrl(this.state.fileNameOld)}> {this.state.originalFileNameOld} </Link>
+                      </Typography>
+                    </div>
                   </Grid>
-
                   <Grid align="right" className={classes.Grid} xs={12} item>
-                    <Link className={classes.SubmitBtn} to="/App/AllVideos">
+                    <Link className={classes.SubmitBtn} to="/App/AllDocuments">
                       <Button
                         color="secondary"
                         type="submit"
@@ -351,14 +345,15 @@ class UpdateVideo extends React.Component {
 }
 
 // Typechecking With PropTypes
-UpdateVideo.propTypes = {
-  updateVideo: PropTypes.func,
-  video: PropTypes.object
+UpdateDocument.propTypes = {
+  updateDocument: PropTypes.func,
+  getPreSignedUrl: PropTypes.func,
+  document: PropTypes.object
 };
 
 // Map reducer's state as props
 const mapStateToProps = (state) => ({
-  video: state.video.video,
+  document: state.document.document,
 });
 
-export default connect(mapStateToProps, { updateVideo })(withStyles(styles)(UpdateVideo));
+export default connect(mapStateToProps, { updateDocument, getPreSignedUrl })(withStyles(styles)(UpdateDocument));

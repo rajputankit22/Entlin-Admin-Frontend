@@ -176,7 +176,7 @@ class Document extends Component {
           customBodyRender: (documentId, tableMeta, updateValue) => {
             return (
               <span style={{ color: "#1e9ff2" }}>
-                <Link to={"/App/UpdateVideo"} onClick={() => { this.props.fetchDocumentById(documentId) }}>
+                <Link to={"/App/UpdateDocument"} onClick={() => { this.props.fetchDocumentById(documentId) }}>
                   <Tooltip title="Update Document">
                     <IconButton size="small">
                       <BorderColorOutlinedIcon
